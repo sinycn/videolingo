@@ -1,0 +1,54 @@
+## This is a sample to deploy videolingo in your k8s cluster 
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rqlove-stg
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rqlove
+  namespace: rqlove-stg
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: rqlove
+  template:
+    metadata:
+      labels:
+        name: rqlove
+    spec:
+      containers:
+      - name: rqlove
+        image: videolingo
+#        imagePullPolicy: Never
+        env:
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: compute,utility
+        ports:
+        - name: http
+          containerPort: 8501
+          protocol: TCP
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+      nodeSelector:
+        nvidia.com/gpu.product: NVIDIA-GeForce-RTX-2080-Ti   ## pls change it when use your local GPU resources
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rqlove
+  namespace: rqlove-stg
+spec:
+  type: LoadBalancer
+  selector:
+    name: rqlove
+  ports:
+  - port: 80
+    name: http
+    targetPort: http
+    protocol: TCP

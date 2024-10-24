@@ -166,7 +166,7 @@ def main():
         if platform.system() == 'Linux':
             try:
                 # Try apt-get first (Debian-based systems)
-                subprocess.run(['sudo', 'apt-get', 'install', '-y', 'fonts-noto'], check=True)
+                subprocess.run(['sudo', 'apt-get', 'install', '-y', 'fonts-noto-cjk'], check=True)
                 print("Noto fonts installed successfully using apt-get.")
             except subprocess.CalledProcessError:
                 try:

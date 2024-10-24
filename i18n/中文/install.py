@@ -166,7 +166,7 @@ def main():
         if platform.system() == 'Linux':
             try:
                 # 首先尝试 apt-get（基于 Debian 的系统）
-                subprocess.run(['sudo', 'apt-get', 'install', '-y', 'fonts-noto'], check=True)
+                subprocess.run(['sudo', 'apt-get', 'install', '-y', 'fonts-noto-cjk'], check=True)
                 print("使用 apt-get 成功安装 Noto 字体。")
             except subprocess.CalledProcessError:
                 try:

@@ -9,7 +9,7 @@ ARG PYTHON_VERSION=3.10
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
     sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
     apt-get update && apt-get install -y --no-install-recommends \
-    software-properties-common git curl sudo ffmpeg fonts-noto wget \
+    software-properties-common git curl sudo ffmpeg fonts-noto-cjk wget \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update -y \
     && apt-get install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-venv \
